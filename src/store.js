@@ -8,5 +8,5 @@ compose(
   autoRehydrate()
 ));
 
-persistStore(store)
+//persistStore(store)
 export default store;

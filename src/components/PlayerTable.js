@@ -29,7 +29,7 @@ class PlayerTable extends Component {
   }
 
   getClass(id) {
-    return id === this.props.selected ? 'is-selected' : '';
+    return id === this.props.selected ? 'animated fadeIn is-selected' : 'animated fadeIn';
   }
 
   getChicagoIcon(hasChicago) {
@@ -73,10 +73,27 @@ class PlayerTable extends Component {
     return "button is-danger is-fullwidth" + outline;
   }
 
+  focusHandler() {
+    this.props.showButtons(false)
+  }
+
+  blurHandler() {
+    this.props.showButtons(true)
+  }
+
+  getInputSize(str) {
+    let len = str.length > 0 ? str.length : 8
+    len = len > 17 ? 17 : len
+    return len
+  }
+
   render() {
     let playerRow = this.props.players.map((player, index) => (
       <tr key={player.id} onClick={ () => { this.props.onRowClick(player.id, this.props.selected) } } className={ this.getClass(player.id) }>
         <td><input className="invis"
+                   size={ this.getInputSize(player.name) }
+                   onFocus={ this.focusHandler.bind(this) }
+                   onBlur={ this.blurHandler.bind(this) }
                    name={player.id}
                    ref={ (input) => { this.latest = input } }
                    placeholder={'Spelare ' + (index+1)}
@@ -104,7 +121,7 @@ class PlayerTable extends Component {
 
         <div className="columns is-mobile is-fullwidth">
           <div className="column">
-            <a onClick={ () => this.props.removalHandler(this.props.selected) } className={ this.getDeleteButtonStyle() }>
+            <a disabled={this.props.players.length === 0} onClick={ () => this.props.removalHandler(this.props.selected) } className={ this.getDeleteButtonStyle() }>
               <span className="icon is-small"><i className="fa fa-trash-o"> </i></span>
               <span>{ this.props.selected === -1 ? 'Ta bort alla' : 'Ta bort vald'}</span>
             </a>
@@ -135,7 +152,8 @@ PlayerTable.PropTypes = {
   editPlayerName: PropTypes.func.isRequired,
   raiseBaseID: PropTypes.func.isRequired,
   baseID: PropTypes.number.isRequired,
-  removalHandler: PropTypes.func.isRequired
+  removalHandler: PropTypes.func.isRequired,
+  showButtons: PropTypes.func.isRequired
 };
 
 export default PlayerTable

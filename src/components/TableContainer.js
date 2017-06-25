@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PlayerTable from './PlayerTable'
-import { selectPlayer, addPlayer, removePlayer, getClass, revokeChicago, setName, raiseBaseID, fullReset } from './../actions'
+import { showButtons, selectPlayer, addPlayer, removePlayer, getClass, revokeChicago, setName, raiseBaseID, fullReset } from './../actions'
 
 const mapStateToProps = state => {
   return {
@@ -37,6 +37,10 @@ const mapDispatchToProps = dispatch => {
 
     raiseBaseID: () => {
       dispatch(raiseBaseID())
+    },
+
+    showButtons: (show) => {
+      dispatch(showButtons(show))
     },
 
     removalHandler: id => {

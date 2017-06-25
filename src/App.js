@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
-import { Provider } from 'react-redux'
-import store from './store'
+import PropTypes from 'prop-types'
 import ButtonContainer from './components/ButtonContainer';
 import TableContainer from './components/TableContainer';
 import 'font-awesome-webpack';
 import './App.css';
+import './../node_modules/animate.css/animate.min.css';
 import './../node_modules/bulma/css/bulma.css';
 
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
         <div className="App">
 
           <div className="container">
@@ -19,17 +18,21 @@ class App extends Component {
             </div>
           </div>
 
-          <div style={App.buttonContainerStyle()}>
+          <div style={ this.buttonContainerStyle() }>
             <ButtonContainer />
           </div>
 
         </div>
-      </Provider>
     );
   }
 
-  static buttonContainerStyle() {
+  displayMode() {
+    return this.props.hideButtons ? 'none' : ''
+  }
+
+   buttonContainerStyle() {
     return {
+      display: this.displayMode(),
       borderTop: '1px solid #d3d3d3',
       position: 'fixed',
       padding: '2rem',
@@ -41,5 +44,9 @@ class App extends Component {
     }
   }
 }
+
+App.PropTypes = {
+  hideButtons: PropTypes.bool.isRequired
+};
 
 export default App;

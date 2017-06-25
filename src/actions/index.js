@@ -8,6 +8,12 @@ export function increment(amount) {
   }
 }
 
+export function showButtons(show) {
+  return {
+    type: show ? 'SHOW_BUTTONS' : 'HIDE_BUTTONS'
+  }
+}
+
 export function fullReset() {
   return {
     type: 'FULL_RESET'
