@@ -18,7 +18,7 @@ class App extends Component {
             </div>
           </div>
 
-          <div style={ this.buttonContainerStyle() }>
+          <div className="animated slideInUp" style={ this.buttonContainerStyle() }>
             <ButtonContainer />
           </div>
 

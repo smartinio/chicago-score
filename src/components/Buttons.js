@@ -8,7 +8,7 @@ class Buttons extends Component {
      <div style={{position: 'relative', width: '100%'}}>
        <div className="columns is-mobile">
 
-         <div className="column">
+         <div className="column tight">
            <div className="field">
              <p className="control">
                <a onClick={() => this.props.resetExcept()} className="button is-outlined is-fullwidth">Nolla övriga</a>
@@ -16,7 +16,7 @@ class Buttons extends Component {
            </div>
          </div>
 
-         <div className="column">
+         <div className="column tight">
            <div className="field">
              <p className="control">
                <a onClick={() => this.props.resetAll()} className="button is-primary is-fullwidth">Börja om</a>
@@ -24,7 +24,7 @@ class Buttons extends Component {
            </div>
          </div>
 
-         <div className="column">
+         <div className="column tight">
            <div className="field">
              <p className="control">
                <a onClick={() => this.props.undo()} className="button is-danger is-fullwidth">Ångra</a>

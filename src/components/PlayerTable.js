@@ -90,7 +90,7 @@ class PlayerTable extends Component {
   render() {
     let playerRow = this.props.players.map((player, index) => (
       <tr key={player.id} onClick={ () => { this.props.onRowClick(player.id, this.props.selected) } } className={ this.getClass(player.id) }>
-        <td><input className="invis"
+        <td style={{minWidth: '168px'}}><input className="invis"
                    size={ this.getInputSize(player.name) }
                    onFocus={ this.focusHandler.bind(this) }
                    onBlur={ this.blurHandler.bind(this) }

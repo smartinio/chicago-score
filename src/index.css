@@ -13,3 +13,7 @@ body {
   color: inherit;
   font-size: 1em;
 }
+
+.column {
+  padding: 0.4rem !important;
+}
