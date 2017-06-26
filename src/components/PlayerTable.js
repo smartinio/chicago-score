@@ -83,28 +83,31 @@ class PlayerTable extends Component {
 
   getInputSize(str) {
     let len = str.length > 0 ? str.length : 8
-    len = len > 17 ? 17 : len
+    len = len > 15 ? 15 : len
     len = len*9;
 
-    return len + 'px';
+    let ret = len + 'px';
+    console.log(ret)
+    return ret
   }
 
   render() {
     let playerRow = this.props.players.map((player, index) => (
       <tr key={player.id} onClick={ () => { this.props.onRowClick(player.id, this.props.selected) } } className={ this.getClass(player.id) }>
-        <td style={{minWidth: '168px'}}>
+        <td style={{minWidth: '160px'}}>
           <input className="invis"
-                   width={ this.getInputSize(player.name) }
-                   onFocus={ this.focusHandler.bind(this) }
-                   onBlur={ this.blurHandler.bind(this) }
-                   name={player.id}
-                   ref={ (input) => { this.latest = input } }
-                   placeholder={'Spelare ' + (index+1)}
-                   defaultValue={player.name || ''}
-                   onChange={ this.handleChange.bind(this) } />
+                 onFocus={ this.focusHandler.bind(this) }
+                 onBlur={ this.blurHandler.bind(this) }
+                 size="1"
+                 style={ {width: this.getInputSize(player.name)} }
+                 name={player.id}
+                 ref={ (input) => { this.latest = input } }
+                 placeholder={'Spelare ' + (index+1)}
+                 defaultValue={player.name || ''}
+                 onChange={ this.handleChange.bind(this) } />
         </td>
         <td>{ this.isHighest(player.score) }</td>
-        <td style={{minWidth: "80px"}}>{this.getChicagoIcon(player.chicago)} {this.getTradeIcon(player.score)}</td>
+        <td style={{minWidth: '80px'}}>{this.getChicagoIcon(player.chicago)} {this.getTradeIcon(player.score)}</td>
       </tr>
     ));
 
@@ -115,7 +118,7 @@ class PlayerTable extends Component {
           <tr>
             <th>Namn</th>
             <th>Poäng</th>
-            <th style={{minWidth: "80px"}}><span className="icon is-pulled-right"><i className="fa fa-info-circle"> </i></span></th>
+            <th style={{minWidth: '80px'}}><span className="icon is-pulled-right"><i className="fa fa-info-circle"> </i></span></th>
           </tr>
           </thead>
           <tbody>
@@ -123,7 +126,7 @@ class PlayerTable extends Component {
           </tbody>
         </table>
 
-        <div className="columns is-mobile is-fullwidth">
+        <div className="columns is-mobile">
           <div className="column">
             <a disabled={this.props.players.length === 0} onClick={ () => this.props.removalHandler(this.props.selected) } className={ this.getDeleteButtonStyle() }>
               <span className="icon is-small"><i className="fa fa-trash-o"> </i></span>
@@ -134,7 +137,7 @@ class PlayerTable extends Component {
           <div className="column">
             <a onClick={() => this.newPlayer() } className="button is-outlined is-fullwidth">
               <span className="icon is-small"><i className="fa fa-plus"> </i></span>
-              <span>Lägg till spelare</span>
+              <span>Lägg till</span>
             </a>
           </div>
         </div>
