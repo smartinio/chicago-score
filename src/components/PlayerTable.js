@@ -83,8 +83,7 @@ class PlayerTable extends Component {
 
   getInputSize(str) {
     let len = str.length > 0 ? str.length : 8
-    len = len > 15 ? 15 : len
-    len = len*9;
+    len = len*10 > 135 ? 135 : len*10;
 
     let ret = len + 'px';
     console.log(ret)
