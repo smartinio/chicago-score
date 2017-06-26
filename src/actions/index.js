@@ -8,6 +8,14 @@ export function increment(amount) {
   }
 }
 
+export function decrement(amount) {
+  return {
+    type: 'DECREASE_SCORE',
+    amount,
+    id: store.getState().UI.present.selected
+  }
+}
+
 export function showButtons(show) {
   return {
     type: show ? 'SHOW_BUTTONS' : 'HIDE_BUTTONS'

@@ -84,21 +84,25 @@ class PlayerTable extends Component {
   getInputSize(str) {
     let len = str.length > 0 ? str.length : 8
     len = len > 17 ? 17 : len
-    return len
+    len = len*9;
+
+    return len + 'px';
   }
 
   render() {
     let playerRow = this.props.players.map((player, index) => (
       <tr key={player.id} onClick={ () => { this.props.onRowClick(player.id, this.props.selected) } } className={ this.getClass(player.id) }>
-        <td style={{minWidth: '168px'}}><input className="invis"
-                   size={ this.getInputSize(player.name) }
+        <td style={{minWidth: '168px'}}>
+          <input className="invis"
+                   width={ this.getInputSize(player.name) }
                    onFocus={ this.focusHandler.bind(this) }
                    onBlur={ this.blurHandler.bind(this) }
                    name={player.id}
                    ref={ (input) => { this.latest = input } }
                    placeholder={'Spelare ' + (index+1)}
                    defaultValue={player.name || ''}
-                   onChange={ this.handleChange.bind(this) } /></td>
+                   onChange={ this.handleChange.bind(this) } />
+        </td>
         <td>{ this.isHighest(player.score) }</td>
         <td style={{minWidth: "80px"}}>{this.getChicagoIcon(player.chicago)} {this.getTradeIcon(player.score)}</td>
       </tr>
