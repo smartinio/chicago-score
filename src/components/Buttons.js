@@ -6,13 +6,15 @@ class Buttons extends Component {
     super(props)
     this.state = {add: true}
   }
-  pointHandler(score) {
-    if (this.state.add)
+
+  pointHandler(score, asChicago = false) {
+    if (this.state.add) {
       this.props.increment(score)
-    else {
-      this.props.decrement(score)
-      this.setState({add: true})
+      if (asChicago) this.props.markChicago()
+      return;
     }
+    this.props.decrement(score)
+    this.setState({add: true})
   }
 
   getLabel(score) {
@@ -21,13 +23,13 @@ class Buttons extends Component {
 
  render() {
    return (
-     <div style={{position: 'relative', width: '100%'}}>
+     <div style={{ position: 'relative', width: '100%' }}>
        <div className="columns is-mobile">
 
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.props.resetExcept()} className="button is-outlined is-fullwidth">Nolla övriga</a>
+               <a onClick={ () => this.props.resetExcept() } className="button is-outlined is-fullwidth">Nolla övriga</a>
              </p>
            </div>
          </div>
@@ -35,7 +37,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.props.resetAll()} className="button is-primary is-fullwidth">Börja om</a>
+               <a onClick={ () => this.props.resetAll() } className="button is-primary is-fullwidth">Börja om</a>
              </p>
            </div>
          </div>
@@ -43,8 +45,8 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.setState({add: !this.state.add})} className="button is-danger is-fullwidth">
-                 <span className="icon"><i className={this.state.add? 'fa fa-minus' : 'fa fa-mail-reply' }> </i></span>
+               <a onClick={ () => this.setState({ add: !this.state.add }) } className="button is-danger is-fullwidth">
+                 <span className="icon"><i className={ this.state.add? 'fa fa-minus' : 'fa fa-mail-reply' }> </i></span>
                </a>
              </p>
            </div>
@@ -56,7 +58,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.pointHandler(1)} className="button is-dark is-fullwidth">
+               <a onClick={ () => this.pointHandler(1) } className="button is-dark is-fullwidth">
                  { this.getLabel(1) }
                </a>
              </p>
@@ -66,7 +68,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.pointHandler(2)} className="button is-dark is-fullwidth">
+               <a onClick={ () => this.pointHandler(2) } className="button is-dark is-fullwidth">
                  { this.getLabel(2) }
                </a>
              </p>
@@ -76,7 +78,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.pointHandler(3)} className="button is-dark is-fullwidth">
+               <a onClick={ () => this.pointHandler(3) } className="button is-dark is-fullwidth">
                  { this.getLabel(3) }
                </a>
              </p>
@@ -86,7 +88,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.pointHandler(4)} className="button is-dark is-fullwidth">
+               <a onClick={ () => this.pointHandler(4) } className="button is-dark is-fullwidth">
                  { this.getLabel(4) }
                </a>
              </p>
@@ -99,7 +101,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.pointHandler(5)} className="button is-dark is-fullwidth">
+               <a onClick={ () => this.pointHandler(5) } className="button is-dark is-fullwidth">
                  { this.getLabel(5) }
                </a>
              </p>
@@ -109,7 +111,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.pointHandler(6)} className="button is-dark is-fullwidth">
+               <a onClick={ () => this.pointHandler(6) } className="button is-dark is-fullwidth">
                  { this.getLabel(6) }
                </a>
              </p>
@@ -119,8 +121,8 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => this.pointHandler(7)} className="button is-dark is-fullwidth">
-                 { this.getLabel(7) }
+               <a onClick={ () => this.pointHandler(8) } className="button is-dark is-fullwidth">
+                 { this.getLabel(8) }
                </a>
              </p>
            </div>
@@ -129,7 +131,7 @@ class Buttons extends Component {
          <div className="column">
            <div className="field">
              <p className="control">
-               <a onClick={() => { this.pointHandler(15); this.props.markChicago() } } className="button is-dark is-fullwidth">
+               <a onClick={ () => const chicago = true; this.pointHandler(15, chicago) } className="button is-dark is-fullwidth">
                  <span className="icon is-small" style={this.state.add? {} : {display: 'none'}}>
                    <i className="fa fa-star"> </i>
                  </span>
