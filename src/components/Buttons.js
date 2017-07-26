@@ -1,156 +1,145 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { toast } from 'react-toastify';
 
-class Buttons extends Component {
+class Buttons extends React.Component {
+
   constructor(props) {
-    super(props)
-    this.state = {add: true}
-  }
-
-  pointHandler(score, asChicago = false) {
-    if (this.state.add) {
-      this.props.increment(score)
-      if (asChicago) this.props.markChicago()
-      return;
-    }
-    this.props.decrement(score)
-    this.setState({add: true})
+    super(props);
+    this.state = { add: true };
   }
 
   getLabel(score) {
-    return this.state.add? score : '-' + score
+    return this.state.add ? score : `-${score}`;
   }
 
- render() {
-   return (
-     <div style={{ position: 'relative', width: '100%' }}>
-       <div className="columns is-mobile">
+  notify(score) {
+    const symbol = score > 0 ? '+' : '';
+    const color = score > 0 ? 'green' : 'red';
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.props.resetExcept() } className="button is-outlined is-fullwidth">Nolla övriga</a>
-             </p>
-           </div>
-         </div>
+    const Notification = ({ points, player }) =>
+    (
+      <div style={{ fontSize: '1.5em', color, paddingTop: '8px', height: '100%' }}>
+        {symbol}{points} till {player}
+      </div>
+    );
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.props.resetAll() } className="button is-primary is-fullwidth">Börja om</a>
-             </p>
-           </div>
-         </div>
+    toast(<Notification points={score} player={this.props.currentPlayerName} />);
+  }
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.setState({ add: !this.state.add }) } className="button is-danger is-fullwidth">
-                 <span className="icon"><i className={ this.state.add? 'fa fa-minus' : 'fa fa-mail-reply' }> </i></span>
-               </a>
-             </p>
-           </div>
-         </div>
+  chicagoHandler() {
+    if (this.state.add) {
+      this.props.markChicago();
+      this.notify(15);
+      return;
+    }
+    this.pointHandler(15);
+  }
 
-       </div>
-       <div className="columns is-mobile">
+  pointHandler(score) {
+    if (this.state.add) {
+      this.props.increment(score);
+      this.notify(score);
+      return;
+    }
+    this.props.decrement(score);
+    this.notify(-score);
+    this.setState({ add: true });
+  }
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.pointHandler(1) } className="button is-dark is-fullwidth">
-                 { this.getLabel(1) }
-               </a>
-             </p>
-           </div>
-         </div>
+  render() {
+    function scoreButton(p) {
+      return (
+        <div className="column" key={`score${p.toString()}`}>
+          <div className="field">
+            <p className="control">
+              <button onClick={() => this.pointHandler(p)} className="button is-dark is-fullwidth">
+                { this.getLabel(p) }
+              </button>
+            </p>
+          </div>
+        </div>
+      );
+    }
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.pointHandler(2) } className="button is-dark is-fullwidth">
-                 { this.getLabel(2) }
-               </a>
-             </p>
-           </div>
-         </div>
+    function actionButton(p) {
+      return (
+        <div className="column" key={p.prop}>
+          <div className="field">
+            <p className="control">
+              <button
+                onClick={() => this.props[p.prop]()}
+                className="button is-outlined is-fullwidth"
+              >
+                {p.text}
+              </button>
+            </p>
+          </div>
+        </div>
+      );
+    }
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.pointHandler(3) } className="button is-dark is-fullwidth">
-                 { this.getLabel(3) }
-               </a>
-             </p>
-           </div>
-         </div>
+    const topRow = [
+      { prop: 'resetExcept', text: 'Nolla övriga' },
+      { prop: 'resetAll', text: 'Börja om' },
+    ].map(actionButton.bind(this));
+    const midRow = [1, 2, 3, 4].map(scoreButton.bind(this));
+    const bottomRow = [5, 6, 8].map(scoreButton.bind(this));
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.pointHandler(4) } className="button is-dark is-fullwidth">
-                 { this.getLabel(4) }
-               </a>
-             </p>
-           </div>
-         </div>
+    return (
+      <div style={{ position: 'relative', width: '100%' }}>
+        <div className="columns is-mobile">
+          { topRow }
 
-       </div>
-       <div className="columns is-mobile">
+          <div className="column">
+            <div className="field">
+              <p className="control">
+                <button
+                  onClick={() => this.setState({ add: !this.state.add })}
+                  className="button is-danger is-fullwidth"
+                >
+                  <span className="icon"><i className={this.state.add ? 'fa fa-minus' : 'fa fa-mail-reply'} /></span>
+                </button>
+              </p>
+            </div>
+          </div>
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.pointHandler(5) } className="button is-dark is-fullwidth">
-                 { this.getLabel(5) }
-               </a>
-             </p>
-           </div>
-         </div>
+        </div>
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.pointHandler(6) } className="button is-dark is-fullwidth">
-                 { this.getLabel(6) }
-               </a>
-             </p>
-           </div>
-         </div>
+        <div className="columns is-mobile">
+          { midRow }
+        </div>
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => this.pointHandler(8) } className="button is-dark is-fullwidth">
-                 { this.getLabel(8) }
-               </a>
-             </p>
-           </div>
-         </div>
+        <div className="columns is-mobile">
+          { bottomRow }
 
-         <div className="column">
-           <div className="field">
-             <p className="control">
-               <a onClick={ () => const chicago = true; this.pointHandler(15, chicago) } className="button is-dark is-fullwidth">
-                 <span className="icon is-small" style={this.state.add? {} : {display: 'none'}}>
-                   <i className="fa fa-star"> </i>
-                 </span>
-                 <span>{ this.getLabel(15) }</span>
-               </a>
-             </p>
-           </div>
-         </div>
+          <div className="column">
+            <div className="field">
+              <p className="control">
+                <button
+                  onClick={() => this.chicagoHandler()}
+                  className="button is-dark is-fullwidth"
+                >
+                  <span className="icon is-small" style={this.state.add ? {} : { display: 'none' }}>
+                    <i className="fa fa-star" />
+                  </span>
+                  <span>{ this.getLabel(15) }</span>
+                </button>
+              </p>
+            </div>
+          </div>
 
-       </div>
-     </div>
-   );
- }
+        </div>
+      </div>
+    );
+  }
 }
 
-Buttons.PropTypes = {
+Buttons.propTypes = {
+  currentPlayerName: PropTypes.string.isRequired,
   increment: PropTypes.func.isRequired,
-  undo: PropTypes.func.isRequired,
-  markChicago: PropTypes.func.isRequired
-}
+  decrement: PropTypes.func.isRequired,
+  markChicago: PropTypes.func.isRequired,
+};
 
-export default Buttons
+export default Buttons;

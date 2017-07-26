@@ -1,98 +1,105 @@
-import store from './../store'
+import store from './../store';
 
 export function increment(amount) {
   return {
     type: 'INCREASE_SCORE',
     amount,
-    id: store.getState().UI.present.selected
-  }
+    id: store.getState().UI.selected,
+  };
 }
 
 export function decrement(amount) {
   return {
     type: 'DECREASE_SCORE',
     amount,
-    id: store.getState().UI.present.selected
-  }
+    id: store.getState().UI.selected,
+  };
 }
 
 export function showButtons(show) {
   return {
-    type: show ? 'SHOW_BUTTONS' : 'HIDE_BUTTONS'
-  }
+    type: show ? 'SHOW_BUTTONS' : 'HIDE_BUTTONS',
+  };
 }
 
 export function fullReset() {
   return {
-    type: 'FULL_RESET'
-  }
+    type: 'FULL_RESET',
+  };
 }
 
 export function raiseBaseID() {
   return {
-    type: 'RAISE_BASE_ID'
-  }
+    type: 'RAISE_BASE_ID',
+  };
 }
 
 export function resetScores() {
   return {
-    type: 'RESET_SCORES'
-  }
+    type: 'RESET_SCORES',
+  };
 }
 
 export function resetExcept() {
   return {
     type: 'RESET_EXCEPT',
-    id: store.getState().UI.present.selected
-  }
+    id: store.getState().UI.selected,
+  };
 }
 
 export function addPlayer(id) {
   return {
     type: 'ADD_PLAYER',
-    id
-  }
+    id,
+  };
 }
 
 export function removePlayer(id) {
   return {
     type: 'DELETE_PLAYER',
-    id
-  }
+    id,
+  };
 }
 
 export function selectPlayer(id) {
   return {
     type: 'SELECT_PLAYER',
-    id
-  }
+    id,
+  };
 }
 
 export function getClass(id) {
   return {
     type: 'GET_CLASS',
-    id
-  }
+    id,
+  };
 }
 
 export function markChicago() {
   return {
     type: 'MARK_CHICAGO',
-    id: store.getState().UI.present.selected
-  }
+    id: store.getState().UI.selected,
+  };
 }
 
 export function revokeChicago() {
   return {
     type: 'REVOKE_CHICAGO',
-    id: store.getState().UI.present.selected
-  }
+    id: store.getState().UI.selected,
+  };
 }
 
 export function setName(name, id) {
   return {
     type: 'SET_NAME',
     id,
-    name
-  }
+    name,
+  };
+}
+
+export function updateLog(entry) {
+  return {
+    type: 'UPDATE_LOG',
+    entry,
+  };
 }

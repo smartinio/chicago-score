@@ -1,11 +1,10 @@
-import { combineReducers } from 'redux'
-import undoable, { excludeAction } from 'redux-undo'
-import Players from './players'
-import UI from './ui'
+import { combineReducers } from 'redux';
+import Players from './players';
+import UI from './ui';
 
 const ScoreApp = combineReducers({
-  Players: undoable(Players),
-  UI: undoable(UI, {filter: excludeAction(['SHOW_BUTTONS', 'HIDE_BUTTONS', 'SELECT_PLAYER'])})
-})
+  Players,
+  UI,
+});
 
-export default ScoreApp
+export default ScoreApp;

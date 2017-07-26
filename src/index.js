@@ -1,19 +1,19 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux'
-import { Provider } from 'react-redux'
-import store from './store'
+import { connect } from 'react-redux';
+import 'moment/locale/sv';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
+import wrapper from './wrapper';
 import './index.css';
 
-const mapStateToProps = state => {
+
+function mapStateToProps(state) {
   return {
-    hideButtons: !state.UI.present.showButtons,
-  }
-};
+    hideButtons: !state.UI.showButtons,
+  };
+}
 
-const ConnectedApp = connect(mapStateToProps)(App)
+const render = wrapper(connect(mapStateToProps)(App));
 
-ReactDOM.render(<Provider store={store}><ConnectedApp /></Provider>, document.getElementById('root'));
+ReactDOM.render(render.app, render.root);
 registerServiceWorker();
